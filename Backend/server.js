@@ -23,14 +23,23 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5000",
-      "https://capstone-project-olive-omega.vercel.app",
-    ],
+    origin: function (origin, callback) {
+      if (
+        !origin ||
+        origin.startsWith("http://localhost:5173") ||
+        origin.includes("vercel.app")
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   })
 );
+
+app.options("*", cors());
 
 app.use("/user-api", userApp);
 app.use("/admin-api", adminApp);
