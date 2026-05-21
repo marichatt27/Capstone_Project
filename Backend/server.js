@@ -39,7 +39,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-app.options("*", cors());
+app.options(/.*/, cors());
 
 app.use("/user-api", userApp);
 app.use("/admin-api", adminApp);
