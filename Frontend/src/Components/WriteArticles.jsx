@@ -39,7 +39,7 @@ function WriteArticles() {
       setLoading(true);
       //make POST req to save new article
       let res = await axios.post(
-        "https://atp-1.onrender.com/author-api/article",
+        "https://capstone-project-zd1a.onrender.com/author-api/article",
         articleObj,
         { withCredentials: true },
       );

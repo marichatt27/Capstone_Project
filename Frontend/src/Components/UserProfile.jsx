@@ -29,7 +29,7 @@ function UserProfile() {
       try {
         //read articles of all authors
         let res = await axios.get(
-          "https://atp-1.onrender.com/user-api/articles",
+          "https://capstone-project-zd1a.onrender.com/user-api/articles",
           { withCredentials: true },
         );
         //update articles state

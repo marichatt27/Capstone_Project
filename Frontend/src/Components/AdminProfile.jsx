@@ -20,7 +20,7 @@ function AdminProfile() {
 
   const fetchUsers = async () => {
     try {
-      let res = await axios.get("https://atp-1.onrender.com/admin-api/emails", {
+      let res = await axios.get("https://capstone-project-zd1a.onrender.com/admin-api/emails", {
         withCredentials: true,
       });
 
@@ -39,8 +39,7 @@ function AdminProfile() {
 
   const toggleStatus = async (user) => {
     try {
-      await axios.put(
-        "https://atp-1.onrender.com/admin-api/userStatus",
+      await axios.put("https://capstone-project-zd1a.onrender.com/admin-api/userStatus",
         {
           email: user.email, //FIXED (was userId before)
           isUserActive: !user.isUserActive,

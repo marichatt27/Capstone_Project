@@ -34,7 +34,7 @@ function Register() {
       console.log(userObj)
       //make http request to create user
       let res = await axios.post(
-        "https://atp-1.onrender.com/common-api/users",
+        "https://capstone-project-zd1a.onrender.com/common-api/users",
         userObj
       );
       
