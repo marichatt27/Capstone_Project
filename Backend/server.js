@@ -26,19 +26,19 @@ app.use(
     origin: function (origin, callback) {
       if (
         !origin ||
-        origin.startsWith("http://localhost:5173") ||
-        origin.includes("vercel.app")
+        origin.includes("vercel.app") ||
+        origin === "http://localhost:5173"
       ) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(new Error("CORS not allowed"));
       }
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
 app.options("*", cors());
 
 app.use("/user-api", userApp);
