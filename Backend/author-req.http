@@ -1,0 +1,43 @@
+###create new article
+POST http://localhost:5000/author-api/article
+Content-Type: application/json
+
+{
+    "author":"69e9ff54366476d586ae618a",
+    "title":"Article by sravanya",
+    "category":"programming",
+    "content":"test article on programming"
+}
+
+###read own article
+GET http://localhost:5000/author-api/article
+
+###user login
+
+POST http://localhost:5000/common-api/login
+Content-Type: application/json
+
+{
+    "email":"author1@gmail.com",
+    "password":"author1"
+}
+
+###edit article
+PUT http://localhost:5000/author-api/article
+Content-Type: application/json
+
+{
+    "articleId":"69b3da2351a63542dcdef84a",
+    "title":"Article 1 by Author 1",
+    "category":"AI",
+    "content":"test article on AI and is updated"
+}
+
+###delete/restoring the article(soft article)
+PATCH http://localhost:5000/author-api/article
+Content-Type: application/json
+
+{
+    "articleId":"69b3da2351a63542dcdef84a",
+    "isArticleActive":true
+}
