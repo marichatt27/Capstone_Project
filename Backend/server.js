@@ -25,7 +25,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5000",
-      "https://atp-theta.vercel.app",
+      "https://capstone-project-olive-omega.vercel.app",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
