@@ -62,78 +62,135 @@ function Login() {
   }
 
   return (
-    <div
-      className={`${pageBackground} flex items-center justify-center py-16 px-4`}
-    >
-      <div className={formCard}>
-        <h2 className={formTitle}>Sign In</h2>
+  <div className="min-h-screen w-full bg-[#d9cfc3] flex items-center justify-center px-4 py-10">
 
-        
+    <div className="w-full max-w-2xl bg-[#f7f3ee] rounded-3xl shadow-xl overflow-hidden">
+
+      {/* RIGHT SIDE */}
+      <div className="p-8 md:p-12 flex flex-col justify-center">
+
+        {/* TITLE */}
+        <div className="mb-10 text-center">
+
+          <p className="uppercase tracking-[4px] text-sm text-gray-500 mb-4">
+            Sign In
+          </p>
+
+          <h2 className="text-5xl font-black text-gray-900">
+            Hello Again
+          </h2>
+
+          <p className="text-gray-600 mt-4 text-lg">
+            Login to continue your blogging journey.
+          </p>
+
+        </div>
+
+        {/* ERROR */}
         {error && (
-          <p className={errorClass}>
+          <p className="bg-red-100 text-red-500 p-4 rounded-2xl mb-6 text-center">
             {typeof error === "string"
               ? error
               : error?.message || "Login failed"}
           </p>
         )}
 
-        <form onSubmit={handleSubmit(onUserLogin)}>
-          {/* Email */}
-          <div className={formGroup}>
-            <label className={labelClass}>Email</label>
-            <input
-              type="email"
-              placeholder="you@example.com"
-              className={inputClass}
-              {...register("email", {
-                required: "Email is required",
-                validate: (value) =>
-                  value.trim().length > 0 || "Email cannot be empty",
-              })}
-            />
-            {errors.email && (
-              <p className={errorClass}>{errors.email.message}</p>
-            )}
+        {/* FORM */}
+        <form
+          onSubmit={handleSubmit(onUserLogin)}
+          className="max-w-lg mx-auto w-full"
+        >
+
+          <div className="space-y-5">
+
+            {/* EMAIL */}
+            <div>
+
+              <input
+                type="email"
+                placeholder="Email Address"
+                className="w-full bg-white border border-gray-300 p-5 rounded-2xl outline-none focus:border-black transition"
+                {...register("email", {
+                  required: "Email is required",
+                  validate: (value) =>
+                    value.trim().length > 0 || "Email cannot be empty",
+                })}
+              />
+
+              {errors.email && (
+                <p className="text-red-500 mt-2">
+                  {errors.email.message}
+                </p>
+              )}
+
+            </div>
+
+            {/* PASSWORD */}
+            <div>
+
+              <input
+                type="password"
+                placeholder="Password"
+                className="w-full bg-white border border-gray-300 p-5 rounded-2xl outline-none focus:border-black transition"
+                {...register("password", {
+                  required: "Password is required",
+                  validate: (value) =>
+                    value.trim().length > 0 || "Password cannot be empty",
+                })}
+              />
+
+              {errors.password && (
+                <p className="text-red-500 mt-2">
+                  {errors.password.message}
+                </p>
+              )}
+
+            </div>
+
           </div>
 
-          {/* Password */}
-          <div className={formGroup}>
-            <label className={labelClass}>Password</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              className={inputClass}
-              {...register("password", {
-                required: "Password is required",
-                validate: (value) =>
-                  value.trim().length > 0 || "Password cannot be empty",
-              })}
-            />
-            {errors.password && (
-              <p className={errorClass}>{errors.password.message}</p>
-            )}
-          </div>
+          {/* FORGOT PASSWORD */}
+          <div className="text-right mt-4">
 
-          <div className="text-right -mt-2 mb-4">
-            <a href="/forgot-password" className={`${linkClass} text-xs`}>
+            <a
+              href="/forgot-password"
+              className="text-gray-600 hover:text-black transition"
+            >
               Forgot password?
             </a>
+
           </div>
 
-          <button type="submit" className={submitBtn}>
+          {/* BUTTON */}
+          <button
+            type="submit"
+            className="w-full mt-8 bg-black text-white py-5 rounded-2xl text-lg font-semibold hover:bg-gray-800 transition"
+          >
             Sign In
           </button>
+
         </form>
 
-        <p className={`${mutedText} text-center mt-5`}>
-          Don't have an account?{" "}
-          <NavLink to="/register" className={linkClass}>
+        {/* FOOTER */}
+        <p className="text-center text-gray-600 mt-8">
+
+          Don’t have an account?{" "}
+
+          <NavLink
+            to="/register"
+            className="font-semibold text-black hover:underline"
+          >
             Create one
           </NavLink>
+
         </p>
+
       </div>
+
     </div>
-  );
+
+  </div>
+);
 }
 
 export default Login;

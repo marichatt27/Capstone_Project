@@ -72,89 +72,179 @@ function UserProfile() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10">
-      {/* ERROR */}
-      {error && <p className={errorClass}>{error}</p>}
+  <div className="min-h-screen bg-[#d9cfc3] px-6 py-10">
 
-      {/* PROFILE HEADER */}
-      <div className="bg-white border border-[#e8e8ed] rounded-3xl p-6 mb-8 shadow-sm flex items-center justify-between">
-        {/* LEFT */}
-        <div className="flex items-center gap-4">
-          {/* Avatar */}
-          {currentUser?.profileImageUrl ? (
-            <img
-              src={currentUser.profileImageUrl}
-              className="w-16 h-16 rounded-full object-cover border"
-              alt="profile"
-            />
-          ) : (
-            <div className="w-16 h-16 rounded-full bg-[#0066cc]/10 text-[#0066cc] flex items-center justify-center text-xl font-semibold">
-              {currentUser?.firstName?.charAt(0).toUpperCase()}
+    <div className="max-w-7xl mx-auto">
+
+      {/* HERO PROFILE SECTION */}
+      <div className="bg-[#f7f3ee] rounded-[45px] p-8 lg:p-12 shadow-xl mb-12">
+
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+
+          {/* LEFT */}
+          <div className="flex items-center gap-6">
+
+            {/* PROFILE IMAGE */}
+            {currentUser?.profileImageUrl ? (
+              <img
+                src={currentUser.profileImageUrl}
+                alt="profile"
+                className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-lg"
+              />
+            ) : (
+              <div className="w-28 h-28 rounded-full bg-black text-white flex items-center justify-center text-4xl font-bold shadow-lg">
+                {currentUser?.firstName?.charAt(0).toUpperCase()}
+              </div>
+            )}
+
+            {/* TEXT */}
+            <div>
+
+              <p className="uppercase tracking-[4px] text-sm text-gray-500 mb-3">
+                Welcome Back
+              </p>
+
+              <h1 className="text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
+                {currentUser?.firstName}
+              </h1>
+
+              <p className="text-gray-600 text-lg mt-4 max-w-xl">
+                Explore trending blogs, discover inspiring stories,
+                and enjoy modern digital storytelling.
+              </p>
+
             </div>
-          )}
 
-          {/* Name */}
-          <div>
-            <p className="text-sm text-[#6e6e73]">Welcome back</p>
-            <h2 className="text-xl font-semibold text-[#1d1d1f]">
-              {currentUser?.firstName}
-            </h2>
           </div>
+
+          {/* LOGOUT */}
+          <button
+            onClick={onLogout}
+            className="bg-black text-white px-8 py-4 rounded-full hover:bg-gray-800 transition text-lg"
+          >
+            Logout
+          </button>
+
         </div>
 
-        {/* LOGOUT */}
-        <button
-          className="bg-[#ff3b30] text-white text-sm px-5 py-2 rounded-full hover:bg-[#d62c23] transition"
-          onClick={onLogout}
-        >
-          Logout
-        </button>
       </div>
 
-      {/* ARTICLES SECTION */}
-      <div className="mt-4">
-        <h3 className="text-lg font-semibold text-[#1d1d1f] mb-4">
-          Latest Articles
-        </h3>
+      {/* TITLE */}
+      <div className="flex items-end justify-between mb-10">
 
-        {/* EMPTY STATE */}
-        {articles.length === 0 ? (
-          <p className="text-[#a1a1a6] text-sm text-center py-10">
-            No articles available yet
+        <div>
+
+          <p className="uppercase tracking-[4px] text-sm text-gray-500 mb-3">
+            Explore
           </p>
-        ) : (
-          <div className={articleGrid}>
-            {articles.map((articleObj) => (
-              <div className={articleCardClass} key={articleObj._id}>
-                <div className="flex flex-col h-full">
-                  {/* TOP */}
-                  <div>
-                    <p className={articleTitle}>{articleObj.title}</p>
 
-                    <p className="text-sm text-[#6e6e73] mt-1">
-                      {articleObj.content.slice(0, 80)}...
-                    </p>
+          <h2 className="text-5xl font-black text-gray-900">
+            Latest Articles
+          </h2>
 
-                    <p className={`${timestampClass} mt-2`}>
-                      {formatDateIST(articleObj.createdAt)}
-                    </p>
-                  </div>
+        </div>
 
-                  {/* ACTION */}
-                  <button
-                    className={`${ghostBtn} mt-auto pt-4`}
-                    onClick={() => navigateToArticleByID(articleObj)}
-                  >
-                    Read Article →
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
+
+      {/* ERROR */}
+      {error && (
+        <div className="bg-red-100 text-red-500 p-5 rounded-2xl mb-8">
+          {error}
+        </div>
+      )}
+
+      {/* EMPTY STATE */}
+      {articles.length === 0 ? (
+
+        <div className="bg-[#f7f3ee] rounded-[35px] p-20 text-center shadow-sm">
+
+          <h3 className="text-4xl font-bold text-gray-900 mb-4">
+            No Articles Yet
+          </h3>
+
+          <p className="text-gray-600 text-lg">
+            Published blogs will appear here.
+          </p>
+
+        </div>
+
+      ) : (
+
+        /* BLOG GRID */
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10 justify-items-center">
+
+          {articles.map((articleObj) => (
+
+            <div
+              key={articleObj._id}
+              className="w-full max-w-[400px] bg-[#f7f3ee] rounded-[38px] overflow-hidden shadow-md hover:-translate-y-2 hover:shadow-2xl transition duration-500"
+            >
+
+              {/* IMAGE */}
+              <div className="relative overflow-hidden">
+
+                <img
+                  src={
+                    articleObj.articleImage ||
+                    "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1200&auto=format&fit=crop"
+                  }
+                  alt="article"
+                  className="w-full h-[260px] object-cover hover:scale-105 transition duration-700"
+                />
+
+                <div className="absolute inset-0 bg-black/10"></div>
+
+              </div>
+
+              {/* CONTENT */}
+              <div className="p-8 flex flex-col min-h-[320px]">
+
+                <div>
+
+                  <p className="uppercase tracking-[4px] text-xs text-gray-500 mb-5">
+                    Blog Article
+                  </p>
+
+                  <h2 className="text-4xl font-black text-gray-900 leading-tight">
+                    {articleObj.title}
+                  </h2>
+
+                  <p className="text-gray-600 text-lg leading-relaxed mt-6">
+                    {articleObj.content.slice(0, 120)}...
+                  </p>
+
+                </div>
+
+                {/* FOOTER */}
+                <div className="mt-auto pt-8 flex items-center justify-between">
+
+                  <p className="text-gray-500 text-sm">
+                    {formatDateIST(articleObj.createdAt)}
+                  </p>
+
+                  <button
+                    onClick={() => navigateToArticleByID(articleObj)}
+                    className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition"
+                  >
+                    Read
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      )}
+
     </div>
-  );
+
+  </div>
+);
 }
 
 export default UserProfile;

@@ -58,160 +58,171 @@ function Register() {
   }
 
   return (
-    <div
-      className={`${pageBackground} flex items-center justify-center py-16 px-4`}
-    >
-      <div className={formCard}>
-        <h2 className={formTitle}>Create an Account</h2>
+  <div className="min-h-screen bg-[#d9cfc3] flex items-center justify-center px-4 py-10">
 
-        {/* API Error */}
-        {/* {apiError && <p className={errorClass}>{apiError}</p>} */}
+    <div className="w-full max-w-2xl bg-[#f7f3ee] rounded-3xl shadow-xl overflow-hidden">
 
-        <form onSubmit={handleSubmit(onUserRegister)}>
+      {/* RIGHT SIDE */}
+      <div className="p-8 md:p-10 flex flex-col justify-center">
+
+        {/* TITLE */}
+        <div className="mb-8 text-center">
+
+          <p className="uppercase tracking-[3px] text-sm text-gray-500 mb-3">
+            Create Account
+          </p>
+
+          <h2 className="text-4xl font-bold text-gray-900">
+            Welcome
+          </h2>
+
+          <p className="text-gray-600 mt-3">
+            Create your account to continue.
+          </p>
+
+        </div>
+
+        {/* ERROR */}
+        {apiError && (
+          <p className="bg-red-100 text-red-500 p-3 rounded-xl mb-5 text-center">
+            {apiError}
+          </p>
+        )}
+
+        {/* FORM */}
+        <form
+          onSubmit={handleSubmit(onUserRegister)}
+          className="max-w-lg mx-auto w-full"
+        >
+
           {/* ROLE */}
           <div className="mb-5">
-            <p className={labelClass}>Register as</p>
 
-            <div className="flex gap-6 mt-1">
-              <label className="flex items-center gap-2 cursor-pointer">
+            <p className="text-gray-700 font-medium mb-3">
+              Register as
+            </p>
+
+            <div className="flex gap-4">
+
+              <label className="flex-1 bg-white border border-gray-300 rounded-xl px-4 py-3 flex items-center justify-center gap-2 cursor-pointer">
+
                 <input
                   type="radio"
                   value="USER"
                   {...register("role", {
                     required: "Please select a role",
                   })}
-                  className="accent-blue-600 w-4 h-4"
                 />
-                <span className="text-sm">User</span>
+
+                <span>User</span>
+
               </label>
 
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label className="flex-1 bg-white border border-gray-300 rounded-xl px-4 py-3 flex items-center justify-center gap-2 cursor-pointer">
+
                 <input
                   type="radio"
                   value="AUTHOR"
                   {...register("role", {
                     required: "Please select a role",
                   })}
-                  className="accent-blue-600 w-4 h-4"
                 />
-                <span className="text-sm">Author</span>
+
+                <span>Author</span>
+
               </label>
+
             </div>
 
-            {errors.role && <p className={errorClass}>{errors.role.message}</p>}
+            {errors.role && (
+              <p className="text-red-500 mt-2 text-sm">
+                {errors.role.message}
+              </p>
+            )}
+
           </div>
 
-          <div className={divider} />
+          {/* INPUTS */}
+          <div className="space-y-4">
 
-          {/* NAME */}
-          <div className="sm:flex gap-4 mb-4">
-            <div className="flex-1">
-              <label className={labelClass}>First Name</label>
+            {/* NAME ROW */}
+            <div className="grid md:grid-cols-2 gap-4">
+
               <input
                 type="text"
-                className={inputClass}
-                placeholder="First name"
+                placeholder="First Name"
+                className="w-full bg-white border border-gray-300 p-4 rounded-xl outline-none focus:border-black"
                 {...register("firstName", {
                   required: "First name is required",
-                  minLength: {
-                    value: 2,
-                    message: "At least 2 characters required",
-                  },
-                  maxLength: {
-                    value: 30,
-                    message: "Max 30 characters allowed",
-                  },
-                  validate: (v) => v.trim().length > 0 || "Cannot be empty",
                 })}
               />
-              {errors.firstName && (
-                <p className={errorClass}>{errors.firstName.message}</p>
-              )}
-            </div>
 
-            <div className="flex-1">
-              <label className={labelClass}>Last Name</label>
               <input
                 type="text"
-                className={inputClass}
-                placeholder="Last name"
-                {...register("lastName", {
-                  maxLength: {
-                    value: 30,
-                    message: "Max 30 characters allowed",
-                  },
-                })}
+                placeholder="Last Name"
+                className="w-full bg-white border border-gray-300 p-4 rounded-xl outline-none focus:border-black"
+                {...register("lastName")}
               />
-              {errors.lastName && (
-                <p className={errorClass}>{errors.lastName.message}</p>
-              )}
-            </div>
-          </div>
 
-          {/* EMAIL */}
-          <div className={formGroup}>
-            <label className={labelClass}>Email</label>
+            </div>
+
             <input
               type="email"
-              className={inputClass}
-              placeholder="you@example.com"
+              placeholder="Email Address"
+              className="w-full bg-white border border-gray-300 p-4 rounded-xl outline-none focus:border-black"
               {...register("email", {
                 required: "Email is required",
-                required: [true, "Password is required"],
               })}
             />
-            {errors.email && (
-              <p className={errorClass}>{errors.email.message}</p>
-            )}
-          </div>
 
-          {/* PASSWORD */}
-          <div className={formGroup}>
-            <label className={labelClass}>Password</label>
             <input
               type="password"
-              className={inputClass}
-              placeholder="Min. 8 characters"
+              placeholder="Password"
+              className="w-full bg-white border border-gray-300 p-4 rounded-xl outline-none focus:border-black"
               {...register("password", {
                 required: "Password is required",
               })}
             />
-            {errors.password && (
-              <p className={errorClass}>{errors.password.message}</p>
-            )}
-          </div>
-
-          {/* PROFILE IMAGE */}
-          <div className={formGroup}>
-            <label className={labelClass}>Profile Image</label>
 
             <input
               type="text"
-              accept="image/png, image/jpeg"
+              placeholder="Profile Image URL"
+              className="w-full bg-white border border-gray-300 p-4 rounded-xl outline-none focus:border-black"
               {...register("profileImageUrl")}
             />
 
-            {errors.profileImageUrl && (
-              <p className={errorClass}>{errors.profileImageUrl.message}</p>
-            )}
           </div>
 
-          {/* SUBMIT */}
-          <button type="submit" className={submitBtn}>
+          {/* BUTTON */}
+          <button
+            type="submit"
+            className="w-full mt-6 bg-black text-white py-4 rounded-xl font-semibold hover:bg-gray-800 transition"
+          >
             Create Account
           </button>
+
         </form>
 
         {/* FOOTER */}
-        <p className={`${mutedText} text-center mt-5`}>
+        <p className="text-center text-gray-600 mt-6">
+
           Already have an account?{" "}
-          <NavLink to="/Login" className="text-[#0066cc] font-medium">
-            Sign in
+
+          <NavLink
+            to="/Login"
+            className="font-semibold text-black hover:underline"
+          >
+            Sign In
           </NavLink>
+
         </p>
+
       </div>
+
     </div>
-  );
+
+  </div>
+);
 }
 
 export default Register;

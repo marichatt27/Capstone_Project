@@ -17,73 +17,114 @@ function Author() {
   };
 
   return (
-    <div className={pageWrapper}>
-      {/* PROFILE HEADER */}
-      <div className="bg-white border border-[#e8e8ed] rounded-3xl p-6 mb-8 shadow-sm flex items-center justify-between">
-        {/* LEFT */}
-        <div className="flex items-center gap-4">
-          {/* Avatar */}
-          {currentUser?.profileImageUrl ? (
-            <img
-              src={currentUser.profileImageUrl}
-              className="w-16 h-16 rounded-full object-cover border"
-              alt="profile"
-            />
-          ) : (
-            <div className="w-16 h-16 rounded-full bg-[#0066cc]/10 text-[#0066cc] flex items-center justify-center text-xl font-semibold">
-              {currentUser?.firstName?.charAt(0).toUpperCase()}
-            </div>
-          )}
+    <div className="min-h-screen bg-[#d9cfc3] px-6 py-10">
 
-          {/* Name */}
-          <div>
-            <p className="text-sm text-[#6e6e73]">Welcome back</p>
-            <h2 className="text-xl font-semibold text-[#1d1d1f]">
-              {currentUser?.firstName}
-            </h2>
+      <div className="max-w-7xl mx-auto">
+
+        {/* HERO PROFILE SECTION */}
+        <div className="bg-[#f7f3ee] rounded-[45px] p-8 lg:p-12 shadow-xl mb-12">
+
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+
+            {/* LEFT */}
+            <div className="flex items-center gap-6">
+
+              {/* PROFILE IMAGE */}
+              {currentUser?.profileImageUrl ? (
+                <img
+                  src={currentUser.profileImageUrl}
+                  alt="profile"
+                  className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-lg"
+                />
+              ) : (
+                <div className="w-28 h-28 rounded-full bg-black text-white flex items-center justify-center text-4xl font-bold shadow-lg">
+                  {currentUser?.firstName?.charAt(0).toUpperCase()}
+                </div>
+              )}
+
+              {/* TEXT */}
+              <div>
+
+                <p className="uppercase tracking-[4px] text-sm text-gray-500 mb-3">
+                  Welcome Back
+                </p>
+
+                <h1 className="text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
+                  {currentUser?.firstName}
+                </h1>
+
+                <p className="text-gray-600 text-lg mt-4 max-w-xl">
+                  Manage your articles, create new blogs,
+                  and share your ideas with the world.
+                </p>
+
+              </div>
+
+            </div>
+
+            {/* LOGOUT */}
+            <button
+              onClick={onLogout}
+              className="bg-black text-white px-8 py-4 rounded-full hover:bg-gray-800 transition text-lg"
+            >
+              Logout
+            </button>
+
           </div>
+
         </div>
 
-        {/* LOGOUT */}
-        <button
-          className="bg-[#ff3b30] text-white text-sm px-5 py-2 rounded-full hover:bg-[#d62c23] transition"
-          onClick={onLogout}
-        >
-          Logout
-        </button>
+        {/* TITLE */}
+        <div className="flex items-end justify-between mb-10">
+
+          <div>
+
+            <p className="uppercase tracking-[4px] text-sm text-gray-500 mb-3">
+              Dashboard
+            </p>
+
+            <h2 className="text-5xl font-black text-gray-900">
+              Author Panel
+            </h2>
+
+          </div>
+
+        </div>
+
+        {/* NAVIGATION */}
+        <div className="flex flex-wrap gap-5 mb-12">
+
+          <NavLink
+            to="articles"
+            className={({ isActive }) =>
+              isActive
+                ? "bg-black text-white px-8 py-4 rounded-full shadow-lg text-lg transition"
+                : "bg-[#f7f3ee] text-gray-700 px-8 py-4 rounded-full shadow-md hover:bg-black hover:text-white transition text-lg"
+            }
+          >
+            Articles
+          </NavLink>
+
+          <NavLink
+            to="WriteArticles"
+            className={({ isActive }) =>
+              isActive
+                ? "bg-black text-white px-8 py-4 rounded-full shadow-lg text-lg transition"
+                : "bg-[#f7f3ee] text-gray-700 px-8 py-4 rounded-full shadow-md hover:bg-black hover:text-white transition text-lg"
+            }
+          >
+            Write Article
+          </NavLink>
+
+        </div>
+
+        {/* CONTENT */}
+        <div className="bg-[#f7f3ee] rounded-[40px] p-8 shadow-xl min-h-[500px]">
+          <Outlet />
+        </div>
+
       </div>
 
-      {/* NAVIGATION (TABS STYLE) */}
-      <div className="flex gap-3 mb-6 bg-[#f5f5f7] p-2 rounded-full w-fit">
-        <NavLink
-          to="articles"
-          className={({ isActive }) =>
-            isActive
-              ? "bg-white px-5 py-2 rounded-full text-[#0066cc] text-sm font-medium shadow-sm"
-              : `${navLinkClass} px-5 py-2`
-          }
-        >
-          Articles
-        </NavLink>
-
-        <NavLink
-          to="WriteArticles"
-          className={({ isActive }) =>
-            isActive
-              ? "bg-white px-5 py-2 rounded-full text-[#0066cc] text-sm font-medium shadow-sm"
-              : `${navLinkClass} px-5 py-2`
-          }
-        >
-          Write Article
-        </NavLink>
-      </div>
-
-      <div className={divider}></div>
-
-      {/* CONTENT */}
-      <div className="mt-6">
-        <Outlet />
-      </div>
     </div>
   );
 }
